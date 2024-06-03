@@ -2,10 +2,31 @@
 
 from flask import Flask, request
 from flask_cors import CORS
+from joblib import load
+from dotenv import dotenv_values
+from flask_httpauth import HTTPTokenAuth
+
+
+
+MODEL_SAVE_PATH = '../models/linear_regression_v01.joblib'
 
 app = Flask(__name__)
 CORS(app)
 
+config = dotenv_values(".env")
+auth = HTTPTokenAuth(scheme='Bearer')
+
+tokens = {
+    config['APP_TOKEN']: "user1",
+}
+
+model = load(MODEL_SAVE_PATH)
+
+
+@auth.verify_token
+def verify_token(token):
+    if token in tokens:
+        return tokens[token]
 
 def predict(in_data: dict) -> int:
     """ Predict house price from input data parameters.
@@ -15,8 +36,8 @@ def predict(in_data: dict) -> int:
     :rtype: int
     """
     area = float(in_data['area'])
-    AVG_PRICE = 200_000                 # RUB / m2
-    return int(area * AVG_PRICE)
+    price = model.predict([[area]])
+    return int(price)
 
 
 @app.route("/")

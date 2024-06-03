@@ -4,4 +4,8 @@ venv
 /.env.prod
 src/.env
 src/.DS_Store
+src/__pychache__/
 data/.DS_Store
+/src/log/
+/.DS_Store.orig
+/README.md.orig
