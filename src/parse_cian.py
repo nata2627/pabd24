@@ -24,7 +24,7 @@ def main():
     """Function docstring"""
     t = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     n_rooms = 1
-    CSV_PATH = f'data/raw/{n_rooms}_{t}.csv'
+    CSV_PATH = f'data/raw/{n_rooms}_file.csv'
     data = moscow_parser.get_flats(
         deal_type="sale",
         rooms=(n_rooms,),
