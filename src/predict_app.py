@@ -6,9 +6,7 @@ from joblib import load
 from dotenv import dotenv_values
 from flask_httpauth import HTTPTokenAuth
 
-
-
-MODEL_SAVE_PATH = '../models/linear_regression_v01.joblib'
+MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
 
 app = Flask(__name__)
 CORS(app)

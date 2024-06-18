@@ -6,9 +6,7 @@ import boto3
 
 BUCKET_NAME = 'pabd24'
 YOUR_ID = '18'
-CSV_PATH = ['../data/raw/1_file.csv',
-            '../data/raw/2_file.csv',
-            '../data/raw/3_file.csv']
+CSV_PATH = ['/data/raw/1_file.csv']
 
 config = dotenv_values(".env")
 client = boto3.client(
@@ -21,7 +19,7 @@ client = boto3.client(
 
 def main(args):
     for csv_path in args.input:
-        remote_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/').replace('../', '')
+        remote_name = f'{YOUR_ID}/' + csv_path.replace('\\', '/')
         client.download_file(BUCKET_NAME, remote_name, csv_path)
 
 

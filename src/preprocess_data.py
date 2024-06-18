@@ -11,9 +11,7 @@ logging.basicConfig(
     format='%(asctime)s %(message)s')
 
 
-IN_FILES = ['data/raw/1_file.csv',
-            'data/raw/2_file.csv',
-            'data/raw/3_file.csv']
+IN_FILES = ['data/raw/1_file.csv']
 
 OUT_TRAIN = 'data/proc/train.csv'
 OUT_TEST = 'data/proc/val.csv'
