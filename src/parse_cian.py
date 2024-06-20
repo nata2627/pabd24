@@ -19,29 +19,26 @@ client = boto3.client(
 
 moscow_parser = cianparser.CianParser(location="Москва")
 
+n_rooms = [1, 2, 3]
+
 
 def main():
     """Function docstring"""
-    t = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
-    n_rooms = 1
-    CSV_PATH = f'data/raw/{n_rooms}_file.csv'
-    data = moscow_parser.get_flats(
-        deal_type="sale",
-        rooms=(n_rooms,),
-        with_saving_csv=True,
-        additional_settings={
-            "start_page": 1,
-            "end_page": 2,
-            "object_type": "secondary"
-        })
-    df = pd.DataFrame(data)
-
-    df.to_csv(CSV_PATH,
-              encoding='utf-8',
-              index=False)
-    bucket_name = 'pabd24'
-    object_name = f'{YOUR_ID}/' + CSV_PATH
-    client.upload_file(CSV_PATH, bucket_name, object_name)
+    for rooms in n_rooms:
+        CSV_PATH = f'../data/raw/{rooms}_file.csv'
+        data = moscow_parser.get_flats(
+            deal_type="sale",
+            rooms=(rooms,),
+            with_saving_csv=True,
+            additional_settings={
+                "start_page": 1,
+                "end_page": 2,
+                "object_type": "secondary"
+            })
+        df = pd.DataFrame(data)
+        df.to_csv(CSV_PATH,
+                  encoding='utf-8',
+                  index=False)
 
 
 if __name__ == '__main__':
