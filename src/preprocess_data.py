@@ -5,16 +5,18 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='log/preprocess_data.log',
+    filename='../log/preprocess_data.log',
     encoding='utf-8',
     level=logging.DEBUG,
     format='%(asctime)s %(message)s')
 
 
-IN_FILES = ['data/raw/1_file.csv']
+IN_FILES = ['../data/raw/1_file.csv',
+            '../data/raw/2_file.csv',
+            '../data/raw/3_file.csv']
 
-OUT_TRAIN = 'data/proc/train.csv'
-OUT_TEST = 'data/proc/val.csv'
+OUT_TRAIN = '../data/proc/train.csv'
+OUT_TEST = '../data/proc/val.csv'
 
 TRAIN_SIZE = 0.9
 PRICE_THRESHOLD = 30_000_000
@@ -28,7 +30,7 @@ def main(args):
         main_dataframe = pd.concat([main_dataframe, df], axis=0)
 
     main_dataframe['url_id'] = main_dataframe['url'].map(lambda x: x.split('/')[-2])
-    new_dataframe = main_dataframe[['url_id', 'total_meters', 'price']].set_index('url_id')
+    new_dataframe = main_dataframe[['url_id',"floor","floors_count","rooms_count","total_meters","price"]].set_index('url_id')
 
     new_df = new_dataframe[new_dataframe['price'] < PRICE_THRESHOLD]
 
@@ -44,7 +46,7 @@ def main(args):
     else:
         raise "Wrong split test size!"
 
-    logger.info(f'Write {args.input} to train.csv and test.csv. Train set size: {args.split}')
+    logger.info(f'Write {args.input} to train.csv and val.csv. Train set size: {args.split}')
 
 
 if __name__ == '__main__':

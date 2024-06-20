@@ -1,12 +1,13 @@
 """House price prediction service"""
-
+import pandas as pd
 from flask import Flask, request
 from flask_cors import CORS
 from joblib import load
 from dotenv import dotenv_values
 from flask_httpauth import HTTPTokenAuth
+from src.utils import *
 
-MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+MODEL_SAVE_PATH = '../models/xgb_model.joblib'
 
 app = Flask(__name__)
 CORS(app)
@@ -33,9 +34,10 @@ def predict(in_data: dict) -> int:
     :return: House price, RUB.
     :rtype: int
     """
-    area = float(in_data['area'])
-    price = model.predict([[area]])
+    df = pd.DataFrame([in_data], columns=['url_id', 'floor', 'floors_count', 'rooms_count', 'total_meters'])
+    price = model.predict(df)
     return int(price)
+
 
 
 @app.route("/")

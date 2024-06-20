@@ -3,42 +3,33 @@
 import argparse
 import logging
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 from joblib import dump
+import xgboost as xgb
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='log/train_model.log',
+    filename='../log/train_model_xgb.log',
     encoding='utf-8',
     level=logging.DEBUG,
     format='%(asctime)s %(message)s')
 
-TRAIN_DATA = 'data/proc/train.csv'
-VAL_DATA = 'data/proc/val.csv'
-MODEL_SAVE_PATH = 'models/linear_regression_v01.joblib'
+TRAIN_DATA = '../data/proc/train.csv'
+VAL_DATA = '../data/proc/val.csv'
+MODEL_SAVE_PATH = '../models/xgb_model.joblib'
 
 
 def main(args):
     df_train = pd.read_csv(TRAIN_DATA)
-    x_train = df_train[['total_meters']]
+    x_train = df_train.drop(columns='price')
     y_train = df_train['price']
-    df_val = pd.read_csv(VAL_DATA)
-    x_val = df_val[['total_meters']]
-    y_val = df_val['price']
-
-    linear_model = LinearRegression()
-    linear_model.fit(x_train, y_train)
-    dump(linear_model, args.model)
+    model = xgb.XGBRegressor(n_estimators=100,max_depth=3)
+    model.fit(x_train, y_train)
+    dump(model, args.model)
     logger.info(f'Saved to {args.model}')
-
-    r2 = linear_model.score(x_train, y_train)
-    y_pred = linear_model.predict(x_val)
-    mae = mean_absolute_error(y_pred, y_val)
-    c = int(linear_model.coef_[0])
-    inter = int(linear_model.intercept_)
-
-    logger.info(f'R2 = {r2:.3f}     MAE = {mae:.0f}     Price = {c} * area + {inter}')
+    r2 = model.score(x_train, y_train)
+    mae = mean_absolute_error(y_train, model.predict(x_train))
+    logger.info(f'R2 = {r2:.3f}   MAE = {mae}')
 
 
 if __name__ == '__main__':
