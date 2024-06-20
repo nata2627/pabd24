@@ -1,6 +1,6 @@
 [core]
     remote = storage
 ['remote "storage"']
-    url = s3://pabd24/19/dvcstore
+    url = s3://pabd24/18/dvcstore
     endpointurl = https://storage.yandexcloud.net
 
