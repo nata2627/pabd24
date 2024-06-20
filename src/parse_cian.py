@@ -25,7 +25,7 @@ n_rooms = [1, 2, 3]
 def main():
     """Function docstring"""
     for rooms in n_rooms:
-        CSV_PATH = f'../data/raw/{rooms}_file.csv'
+        CSV_PATH = f'data/raw/{rooms}_file.csv'
         data = moscow_parser.get_flats(
             deal_type="sale",
             rooms=(rooms,),

@@ -9,14 +9,14 @@ import xgboost as xgb
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='../log/train_model_xgb.log',
+    filename='log/train_model_xgb.log',
     encoding='utf-8',
     level=logging.DEBUG,
     format='%(asctime)s %(message)s')
 
-TRAIN_DATA = '../data/proc/train.csv'
-VAL_DATA = '../data/proc/val.csv'
-MODEL_SAVE_PATH = '../models/xgb_model.joblib'
+TRAIN_DATA = 'data/proc/train.csv'
+VAL_DATA = 'data/proc/val.csv'
+MODEL_SAVE_PATH = 'models/xgb_model.joblib'
 
 
 def main(args):

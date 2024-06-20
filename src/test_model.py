@@ -5,12 +5,12 @@ import numpy as np
 from joblib import load
 from sklearn.metrics import mean_absolute_error
 
-MODEL_SAVE_PATH = '../models/xgb_model.joblib'
-TEST_DATA = '../data/proc/val.csv'
+MODEL_SAVE_PATH = 'models/xgb_model.joblib'
+TEST_DATA = 'data/proc/val.csv'
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='../log/test_model_xgb.log',
+    filename='log/test_model_xgb.log',
     encoding='utf-8',
     level=logging.DEBUG,
     format='%(asctime)s %(message)s')

@@ -5,18 +5,18 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='../log/preprocess_data.log',
+    filename='log/preprocess_data.log',
     encoding='utf-8',
     level=logging.DEBUG,
     format='%(asctime)s %(message)s')
 
 
-IN_FILES = ['../data/raw/1_file.csv',
-            '../data/raw/2_file.csv',
-            '../data/raw/3_file.csv']
+IN_FILES = ['data/raw/1_file.csv',
+            'data/raw/2_file.csv',
+            'data/raw/3_file.csv']
 
-OUT_TRAIN = '../data/proc/train.csv'
-OUT_TEST = '../data/proc/val.csv'
+OUT_TRAIN = 'data/proc/train.csv'
+OUT_TEST = 'data/proc/val.csv'
 
 TRAIN_SIZE = 0.9
 PRICE_THRESHOLD = 30_000_000

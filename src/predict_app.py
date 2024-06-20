@@ -7,7 +7,7 @@ from dotenv import dotenv_values
 from flask_httpauth import HTTPTokenAuth
 from src.utils import *
 
-MODEL_SAVE_PATH = '../models/xgb_model.joblib'
+MODEL_SAVE_PATH = 'models/xgb_model.joblib'
 
 app = Flask(__name__)
 CORS(app)

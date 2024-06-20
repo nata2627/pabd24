@@ -12,7 +12,7 @@ from dotenv import dotenv_values
 import pandas as pd
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='../log/service_test.log',
+    filename='log/service_test.log',
     encoding='utf-8',
     level=logging.INFO,
     format='%(asctime)s %(message)s')
@@ -36,7 +36,7 @@ def do_request(data: dict, endpoint) -> tuple:
 
 
 def test_100(endpoint, name):
-    df = pd.read_csv('../data/proc/test_sample.csv')
+    df = pd.read_csv('data/proc/test_sample.csv')
     prices = df['price']
     df = df.drop(['price'], axis=1)
     records = df.to_dict('records')
