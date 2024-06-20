@@ -12,12 +12,12 @@ from dotenv import dotenv_values
 import pandas as pd
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='log/service_test.log',
+    filename='../log/service_test.log',
     encoding='utf-8',
     level=logging.INFO,
     format='%(asctime)s %(message)s')
 
-endpoints = 'http://192.168.1.7:5000/predict'
+endpoints = 'http://176.123.164.139:8000/predict'
 
 config = dotenv_values(".env")
 HEADERS = {"Authorization": f"Bearer {config['APP_TOKEN']}"}
@@ -36,7 +36,7 @@ def do_request(data: dict, endpoint) -> tuple:
 
 
 def test_100(endpoint, name):
-    df = pd.read_csv('data/proc/test_sample.csv')
+    df = pd.read_csv('../data/proc/test_sample.csv')
     prices = df['price']
     df = df.drop(['price'], axis=1)
     records = df.to_dict('records')
